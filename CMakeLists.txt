@@ -9,5 +9,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
 add_subdirectory(libs/raylib)
 
-add_executable(raylib_template src/main.c)
+set(SRC_FILES src/main.c src/globals.c)
+
+add_executable(raylib_template ${SRC_FILES})
 target_link_libraries(raylib_template PRIVATE raylib)

@@ -1,50 +1,43 @@
-#include "raylib.h"
+#include "globals.h"
 
-#define SCREEN_WIDTH (800)
-#define SCREEN_HEIGHT (450)
+#define SCREEN_WIDTH (TILES_HORIZONTAL * TILE_SIZE)
+#define SCREEN_HEIGHT (TILES_VERTICAL * TILE_SIZE)
 
-// Change this depending on the path of your executable relative to the assets folder
-#define ASSET_PATH "assets/"
+#define LEVEL_COLOUR RAYWHITE
+#define UI_COLOUR (Color){235, 235, 235, 255}
 
 int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Window title");
-
-    Texture2D texture = LoadTexture(ASSET_PATH"test.png");
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-
-    // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Puck-Man");
+    SetTargetFPS(60);
+    
+    while (!WindowShouldClose())
     {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Update your variables here
-        //----------------------------------------------------------------------------------
-
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        const int texture_x = SCREEN_WIDTH / 2 - texture.width / 2;
-        const int texture_y = SCREEN_HEIGHT / 2 - texture.height / 2;
-        DrawTexture(texture, texture_x, texture_y, WHITE);
-
-        const char* text = "OMG! IT WORKS!";
-        const Vector2 text_size = MeasureTextEx(GetFontDefault(), text, 20, 1);
-        DrawText(text, SCREEN_WIDTH / 2 - text_size.x / 2, texture_y + texture.height + text_size.y + 10, 20, BLACK);
+        
+        // Top section of the screen
+		{
+			BeginScissorMode(0, 0, SCREEN_WIDTH, 3*TILE_SIZE);
+			ClearBackground(UI_COLOUR);
+			EndScissorMode();
+		}
+		// Middle section of the screen
+		{
+			BeginScissorMode(0, 3*TILE_SIZE, SCREEN_WIDTH, 31*TILE_SIZE);
+			ClearBackground(LEVEL_COLOUR);
+			EndScissorMode();
+		}
+		// Bottom section of the screen
+		{
+			BeginScissorMode(0, 34*TILE_SIZE, SCREEN_WIDTH, 2*TILE_SIZE);
+			ClearBackground(UI_COLOUR);
+			EndScissorMode();
+		}
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow();        // Close window and OpenGL context
-
+    CloseWindow();
     return 0;
 }
