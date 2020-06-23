@@ -1,4 +1,5 @@
 #include "globals.h"
+#include "objects/player.h"
 
 #define SCREEN_WIDTH (TILES_HORIZONTAL * TILE_SIZE)
 #define SCREEN_HEIGHT (TILES_VERTICAL * TILE_SIZE)
@@ -13,8 +14,12 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Puck-Man");
     SetTargetFPS(60);
     
+    Player player = InitPlayer((Vector2){13.0f, 26.0f}, MD_UP);
+    
     while (!WindowShouldClose())
     {
+    	UpdatePosition(&player);
+    	
         BeginDrawing();
         
         // Top section of the screen
@@ -23,16 +28,19 @@ int main(void)
 			ClearBackground(UI_COLOUR);
 			EndScissorMode();
 		}
-		// Middle section of the screen
-		{
-			BeginScissorMode(0, 3*TILE_SIZE, SCREEN_WIDTH, 31*TILE_SIZE);
-			ClearBackground(LEVEL_COLOUR);
-			EndScissorMode();
-		}
 		// Bottom section of the screen
 		{
 			BeginScissorMode(0, 34*TILE_SIZE, SCREEN_WIDTH, 2*TILE_SIZE);
 			ClearBackground(UI_COLOUR);
+			EndScissorMode();
+		}
+		// Middle section of the screen
+		{
+			BeginScissorMode(0, 3*TILE_SIZE, SCREEN_WIDTH, 31*TILE_SIZE);
+			ClearBackground(LEVEL_COLOUR);
+			
+			RenderPlayer(player);
+			
 			EndScissorMode();
 		}
 

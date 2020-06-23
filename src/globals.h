@@ -17,6 +17,16 @@
 
 #define ASSET_PATH "../assets/"
 
+typedef enum MovementDirection
+{
+	MD_UP,
+	MD_DOWN,
+	MD_LEFT,
+	MD_RIGHT
+} MovementDirection;
+
+MovementDirection GetOpposite(MovementDirection direction);
+
 Vector2 GridToScreen(Vector2 position);
 
 #endif //RAYLIB_TEMPLATE_GLOBALS_H
