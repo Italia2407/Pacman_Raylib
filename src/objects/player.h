@@ -11,11 +11,11 @@ typedef struct Player
 {
 	union
 	{
-		Vector2 position;
+		Vector2Int position;
 		struct
 		{
-			float x;
-			float y;
+			int x;
+			int y;
 		};
 	};
 	
@@ -26,7 +26,7 @@ typedef struct Player
 	
 } Player;
 
-Player InitPlayer(Vector2 position, MovementDirection direction);
+Player InitPlayer(Vector2Int position, MovementDirection direction);
 
 void UpdatePosition(Player* player);
 

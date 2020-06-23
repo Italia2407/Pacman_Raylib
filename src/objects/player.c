@@ -3,10 +3,11 @@
 //
 
 #include "player.h"
+#include "../management/level-manager.h"
 
 #define MOVEMENT_TIMER (0.25f)
 
-Player InitPlayer(Vector2 position, MovementDirection direction)
+Player InitPlayer(Vector2Int position, MovementDirection direction)
 {
 	Player newPlayer = {
 			.position = position,
@@ -44,34 +45,32 @@ void UpdatePosition(Player* player)
 		if (player->movementTimer >= MOVEMENT_TIMER)
 		{
 			player->movementTimer = 0.0f;
-			
 			player->currentDirection = player->nextDirection;
 			
-			switch (player->currentDirection)
+			if (!FacesWall(player->position, player->currentDirection))
 			{
-				case MD_UP:
+				switch (player->currentDirection)
 				{
-					//player->y -= 0.25f;
-					player->y -= 1.0f;
-					break;
-				}
-				case MD_DOWN:
-				{
-					//player->y += 0.25f;
-					player->y += 1.0f;
-					break;
-				}
-				case MD_LEFT:
-				{
-					//player->x -= 0.25f;
-					player->x -= 1.0f;
-					break;
-				}
-				case MD_RIGHT:
-				{
-					//player->x += 0.25f;
-					player->x += 1.0f;
-					break;
+					case MD_UP:
+					{
+						player->y -= 1;
+						break;
+					}
+					case MD_DOWN:
+					{
+						player->y += 1;
+						break;
+					}
+					case MD_LEFT:
+					{
+						player->x -= 1;
+						break;
+					}
+					case MD_RIGHT:
+					{
+						player->x += 1;
+						break;
+					}
 				}
 			}
 		}
@@ -84,8 +83,8 @@ void RenderPlayer(Player player)
 {
 	Vector2 screenSpace = GridToScreen(player.position);
 	Rectangle rectangle = {
-			.x = screenSpace.x + 0.25f*TILE_SIZE,
-			.y = screenSpace.y + 0.25f*TILE_SIZE,
+			.x = screenSpace.x - 0.25f*TILE_SIZE,
+			.y = screenSpace.y - 0.25f*TILE_SIZE,
 			.width = TILE_SIZE*1.5f,
 			.height = TILE_SIZE*1.5f
 	};

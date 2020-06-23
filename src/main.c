@@ -1,5 +1,6 @@
 #include "globals.h"
 #include "objects/player.h"
+#include "management/level-manager.h"
 
 #define SCREEN_WIDTH (TILES_HORIZONTAL * TILE_SIZE)
 #define SCREEN_HEIGHT (TILES_VERTICAL * TILE_SIZE)
@@ -14,7 +15,8 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Puck-Man");
     SetTargetFPS(60);
     
-    Player player = InitPlayer((Vector2){13.0f, 26.0f}, MD_UP);
+    CreateLevelMap();
+    Player player = InitPlayer((Vector2Int){13, 26}, MD_UP);
     
     while (!WindowShouldClose())
     {
@@ -39,6 +41,7 @@ int main(void)
 			BeginScissorMode(0, 3*TILE_SIZE, SCREEN_WIDTH, 31*TILE_SIZE);
 			ClearBackground(LEVEL_COLOUR);
 			
+			DrawLevelTileMap();
 			RenderPlayer(player);
 			
 			EndScissorMode();

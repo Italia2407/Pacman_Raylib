@@ -11,6 +11,7 @@ add_subdirectory(libs/raylib)
 
 set(SRC_FILES src/main.c src/globals.c)
 set(SRC_OBJ_FILES src/objects/player.c)
+set(SRC_MGT_FILES src/management/level-manager.c)
 
-add_executable(PacMan ${SRC_FILES} ${SRC_OBJ_FILES})
+add_executable(PacMan ${SRC_FILES} ${SRC_OBJ_FILES} ${SRC_MGT_FILES})
 target_link_libraries(PacMan PRIVATE raylib)

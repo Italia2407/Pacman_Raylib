@@ -27,7 +27,11 @@ MovementDirection GetOpposite(MovementDirection direction)
 	}
 }
 
-Vector2 GridToScreen(Vector2 position)
+Vector2 GridToScreen(Vector2Int position)
 {
-	return Vector2Scale(position, TILE_SIZE);
+	Vector2 screenSpace = {
+			.x = position.x * TILE_SIZE,
+			.y = position.y * TILE_SIZE
+	};
+	return screenSpace;
 }

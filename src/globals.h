@@ -17,6 +17,12 @@
 
 #define ASSET_PATH "../assets/"
 
+typedef struct Vector2Int
+{
+	int x;
+	int y;
+} Vector2Int;
+
 typedef enum MovementDirection
 {
 	MD_UP,
@@ -27,6 +33,6 @@ typedef enum MovementDirection
 
 MovementDirection GetOpposite(MovementDirection direction);
 
-Vector2 GridToScreen(Vector2 position);
+Vector2 GridToScreen(Vector2Int position);
 
 #endif //RAYLIB_TEMPLATE_GLOBALS_H
