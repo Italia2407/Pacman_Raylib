@@ -10,7 +10,16 @@ static Tile ValidWall = {true};
 
 void CreateLevelMap()
 {
-	LevelTileMap[0][0] = ValidWall;
+	for (int i = 0; i < TILES_HORIZONTAL; i++)
+	{
+		LevelTileMap[i][0] = ValidWall;
+		LevelTileMap[i][TILES_VERTICAL-5 - 1] = ValidWall;
+	}
+	for (int i = 0; i < TILES_VERTICAL-5; i++)
+	{
+		LevelTileMap[0][i] = ValidWall;
+		LevelTileMap[TILES_HORIZONTAL - 1][i] = ValidWall;
+	}
 }
 
 bool FacesWall(Vector2Int position, MovementDirection direction)
@@ -41,16 +50,7 @@ bool FacesWall(Vector2Int position, MovementDirection direction)
 		}
 	}
 	
-	if (tilePosition.y < 0 ||
-		tilePosition.y >= TILES_VERTICAL-5 ||
-		tilePosition.x < 0 ||
-		tilePosition.x >= TILES_HORIZONTAL)
-	{
-		return true;
-	} else
-	{
-		return LevelTileMap[tilePosition.x][tilePosition.y].wall;
-	}
+	return LevelTileMap[tilePosition.x][tilePosition.y].wall;
 }
 
 void DrawLevelTileMap()
@@ -63,11 +63,11 @@ void DrawLevelTileMap()
 			{
 				Vector2 position = {
 						.x = x,
-						.y = y + 3.0f*TILE_SIZE
+						.y = y + 3.0f
 				};
 				Rectangle rectangle = {
-						.x = position.x,
-						.y = position.y,
+						.x = position.x*TILE_SIZE,
+						.y = position.y*TILE_SIZE,
 						.width = TILE_SIZE,
 						.height = TILE_SIZE
 				};
