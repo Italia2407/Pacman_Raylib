@@ -87,5 +87,5 @@ void RenderPlayer(Player player)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawRectangleRec(rectangle, ORANGE);
+	DrawRectangleRec(rectangle, YELLOW);
 }

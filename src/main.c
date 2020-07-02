@@ -32,12 +32,19 @@ int main(void)
     
     player = InitPlayer((Vector2Int){13, 26}, MD_UP);
     
-    blinky = InitEnemy((Vector2Int){1, 5}, (Vector2Int){0, 0}, &BlinkyTarget);
+    blinky = InitEnemy((Vector2Int){26, 4}, (Vector2Int){TILES_HORIZONTAL-1, 0}, &BlinkyTarget, RED);
+    inky = InitEnemy((Vector2Int){26, 32}, (Vector2Int){TILES_HORIZONTAL-1, TILES_VERTICAL-1}, &InkyTarget, SKYBLUE);
+    pinky = InitEnemy((Vector2Int){1, 4}, (Vector2Int){0, 0}, &PinkyTarget, MAGENTA);
+    clyde = InitEnemy((Vector2Int){1, 32}, (Vector2Int){0, TILES_VERTICAL-1}, &ClydeTarget, ORANGE);
     
     while (!WindowShouldClose())
     {
     	UpdatePosition(&player);
+    	
     	MoveEnemy(&blinky);
+    	MoveEnemy(&inky);
+    	MoveEnemy(&pinky);
+    	MoveEnemy(&clyde);
     	
         BeginDrawing();
         
@@ -61,6 +68,9 @@ int main(void)
 			DrawLevelTileMap();
 			RenderPlayer(player);
 			RenderEnemy(blinky);
+			RenderEnemy(inky);
+			RenderEnemy(pinky);
+			RenderEnemy(clyde);
 			
 			EndScissorMode();
 		}

@@ -35,9 +35,11 @@ typedef struct Enemy
 	Vector2Int (*targetPosition)();
 	
 	float movementTimer;
+	
+	Color colour;
 } Enemy;
 
-Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)());
+Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour);
 
 void MoveEnemy(Enemy* enemy);
 

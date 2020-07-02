@@ -6,14 +6,15 @@
 #include "../management/level-manager.h"
 #include <limits.h>
 
-Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)())
+Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour)
 {
 	Enemy newEnemy = {
 			.position = position,
 			.scatterTile = scatterTile,
 			.currentDirection = MD_RIGHT,
-			.currentState = ES_FRIGHT,
-			.targetPosition = targetPostion
+			.currentState = ES_CHASE,
+			.targetPosition = targetPostion,
+			.colour = colour
 	};
 	
 	return newEnemy;
@@ -153,5 +154,5 @@ void RenderEnemy(Enemy enemy)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawRectangleRec(rectangle, RED);
+	DrawRectangleRec(rectangle, enemy.colour);
 }
