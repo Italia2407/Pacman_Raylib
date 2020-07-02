@@ -1,0 +1,46 @@
+//
+// Created by IGRec on 29 Jun 2020.
+//
+
+#ifndef PACMAN_ENEMY_H
+#define PACMAN_ENEMY_H
+
+#include "../globals.h"
+#include "player.h"
+
+typedef enum EnemyState
+{
+	ES_CHASE,
+	ES_SCATTER,
+	ES_FRIGHT,
+	ES_EATEN
+} EnemyState;
+
+typedef struct Enemy
+{
+	union
+	{
+		Vector2Int position;
+		struct
+		{
+			int x;
+			int y;
+		};
+	};
+	Vector2Int scatterTile;
+	
+	MovementDirection currentDirection;
+	EnemyState currentState;
+	
+	Vector2Int (*targetPosition)();
+	
+	float movementTimer;
+} Enemy;
+
+Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)());
+
+void MoveEnemy(Enemy* enemy);
+
+void RenderEnemy(Enemy enemy);
+
+#endif //PACMAN_ENEMY_H

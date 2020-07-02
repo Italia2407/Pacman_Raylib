@@ -5,8 +5,6 @@
 #include "player.h"
 #include "../management/level-manager.h"
 
-#define MOVEMENT_TIMER (0.25f)
-
 Player InitPlayer(Vector2Int position, MovementDirection direction)
 {
 	Player newPlayer = {

@@ -1,5 +1,6 @@
 #include "globals.h"
 #include "objects/player.h"
+#include "objects/enemy.h"
 #include "management/level-manager.h"
 
 #define SCREEN_WIDTH (TILES_HORIZONTAL * TILE_SIZE)
@@ -7,6 +8,12 @@
 
 #define LEVEL_COLOUR RAYWHITE
 #define UI_COLOUR (Color){235, 235, 235, 255}
+
+Vector2Int BlinkyTarget();
+
+Player player;
+
+Enemy blinky;
 
 int main(void)
 {
@@ -16,11 +23,15 @@ int main(void)
     SetTargetFPS(60);
     
     CreateLevelMap();
-    Player player = InitPlayer((Vector2Int){13, 26}, MD_UP);
+    
+    player = InitPlayer((Vector2Int){13, 26}, MD_UP);
+    
+    blinky = InitEnemy((Vector2Int){1, 5}, (Vector2Int){0, 0}, &BlinkyTarget);
     
     while (!WindowShouldClose())
     {
     	UpdatePosition(&player);
+    	MoveEnemy(&blinky);
     	
         BeginDrawing();
         
@@ -43,6 +54,7 @@ int main(void)
 			
 			DrawLevelTileMap();
 			RenderPlayer(player);
+			RenderEnemy(blinky);
 			
 			EndScissorMode();
 		}
@@ -51,4 +63,9 @@ int main(void)
     }
     CloseWindow();
     return 0;
+}
+
+Vector2Int BlinkyTarget()
+{
+	return player.position;
 }

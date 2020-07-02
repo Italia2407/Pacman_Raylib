@@ -11,11 +11,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#define ASSET_PATH "../assets/"
+
 #define TILES_HORIZONTAL (28)
 #define TILES_VERTICAL (36)
 #define TILE_SIZE (24)
 
-#define ASSET_PATH "../assets/"
+#define MOVEMENT_TIMER (0.25f)
 
 typedef struct Vector2Int
 {
@@ -26,13 +28,21 @@ typedef struct Vector2Int
 typedef enum MovementDirection
 {
 	MD_UP,
-	MD_DOWN,
 	MD_LEFT,
-	MD_RIGHT
+	MD_RIGHT,
+	MD_DOWN
 } MovementDirection;
 
 MovementDirection GetOpposite(MovementDirection direction);
 
 Vector2 GridToScreen(Vector2Int position);
+
+Vector2Int Vector2IntAdd(Vector2Int a, Vector2Int b);
+Vector2Int Vector2IntSubtract(Vector2Int a, Vector2Int b);
+Vector2Int Vector2IntScale(Vector2Int vector, int scale);
+
+Vector2Int GetDirectionVector2Scaled(MovementDirection direction, int scale);
+
+int DistanceSquared(Vector2Int a, Vector2Int b);
 
 #endif //RAYLIB_TEMPLATE_GLOBALS_H
