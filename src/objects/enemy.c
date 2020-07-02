@@ -8,13 +8,18 @@
 
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour)
 {
+	Color palette[] = {colour, (Color){197, 204, 184, 255}, (Color){67, 52, 85, 255}};
 	Enemy newEnemy = {
 			.position = position,
 			.scatterTile = scatterTile,
 			.currentDirection = MD_RIGHT,
 			.currentState = ES_CHASE,
 			.targetPosition = targetPostion,
-			.colour = colour
+			.colour = colour,
+			.sprites[0] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Up.png", palette),
+			.sprites[1] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Left.png", palette),
+			.sprites[2] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Right.png", palette),
+			.sprites[3] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Down.png", palette)
 	};
 	
 	return newEnemy;
@@ -146,6 +151,16 @@ void MoveEnemy(Enemy* enemy)
 
 void RenderEnemy(Enemy enemy)
 {
+	Texture usedTexture;
+	if (enemy.currentState == ES_CHASE || enemy.currentState == ES_SCATTER)
+		usedTexture = enemy.sprites[enemy.currentDirection].image;
+	
+	
+	Rectangle source = {
+			.width = usedTexture.width,
+			.height = usedTexture.height
+	};
+	
 	Vector2 screenSpace = GridToScreen(enemy.position);
 	Rectangle rectangle = {
 			.x = screenSpace.x - 0.25f*TILE_SIZE,
@@ -154,5 +169,5 @@ void RenderEnemy(Enemy enemy)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawRectangleRec(rectangle, enemy.colour);
+	DrawTexturePro(usedTexture, source, rectangle, Vector2Zero(), 0.0f, WHITE);
 }

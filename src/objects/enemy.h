@@ -7,6 +7,7 @@
 
 #include "../globals.h"
 #include "player.h"
+#include "../management/sprite-manager.h"
 
 typedef enum EnemyState
 {
@@ -37,6 +38,7 @@ typedef struct Enemy
 	float movementTimer;
 	
 	Color colour;
+	Sprite sprites[4];
 } Enemy;
 
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour);

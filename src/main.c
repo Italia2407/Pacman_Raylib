@@ -32,10 +32,10 @@ int main(void)
     
     player = InitPlayer((Vector2Int){13, 26}, MD_UP);
     
-    blinky = InitEnemy((Vector2Int){26, 4}, (Vector2Int){TILES_HORIZONTAL-1, 0}, &BlinkyTarget, RED);
-    inky = InitEnemy((Vector2Int){26, 32}, (Vector2Int){TILES_HORIZONTAL-1, TILES_VERTICAL-1}, &InkyTarget, SKYBLUE);
-    pinky = InitEnemy((Vector2Int){1, 4}, (Vector2Int){0, 0}, &PinkyTarget, MAGENTA);
-    clyde = InitEnemy((Vector2Int){1, 32}, (Vector2Int){0, TILES_VERTICAL-1}, &ClydeTarget, ORANGE);
+    blinky = InitEnemy((Vector2Int){26, 4}, (Vector2Int){TILES_HORIZONTAL-1, 0}, &BlinkyTarget, (Color){174, 79, 80, 255});
+    inky = InitEnemy((Vector2Int){26, 32}, (Vector2Int){TILES_HORIZONTAL-1, TILES_VERTICAL-1}, &InkyTarget, (Color){104, 172, 169, 255});
+    pinky = InitEnemy((Vector2Int){1, 4}, (Vector2Int){0, 0}, &PinkyTarget, (Color){195, 136, 144, 255});
+    clyde = InitEnemy((Vector2Int){1, 32}, (Vector2Int){0, TILES_VERTICAL-1}, &ClydeTarget, (Color){190, 149, 92, 255});
     
     while (!WindowShouldClose())
     {
