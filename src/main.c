@@ -10,10 +10,16 @@
 #define UI_COLOUR (Color){235, 235, 235, 255}
 
 Vector2Int BlinkyTarget();
+Vector2Int InkyTarget();
+Vector2Int PinkyTarget();
+Vector2Int ClydeTarget();
 
 Player player;
 
 Enemy blinky;
+Enemy inky;
+Enemy pinky;
+Enemy clyde;
 
 int main(void)
 {
@@ -68,4 +74,24 @@ int main(void)
 Vector2Int BlinkyTarget()
 {
 	return player.position;
+}
+
+Vector2Int InkyTarget()
+{
+	Vector2Int intermediate = Vector2IntAdd(player.position, GetDirectionVector2Scaled(player.currentDirection, 2));
+	
+	return Vector2IntSubtract(Vector2IntScale(intermediate, 2), blinky.position);
+}
+
+Vector2Int PinkyTarget()
+{
+	return Vector2IntAdd(player.position, GetDirectionVector2Scaled(player.currentDirection, 4));
+}
+
+Vector2Int ClydeTarget()
+{
+	if (DistanceSquared(clyde.position, player.position) > 64)
+		return player.position;
+	else
+		return clyde.scatterTile;
 }

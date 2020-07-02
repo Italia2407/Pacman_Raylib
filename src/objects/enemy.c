@@ -12,7 +12,7 @@ Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*target
 			.position = position,
 			.scatterTile = scatterTile,
 			.currentDirection = MD_RIGHT,
-			.currentState = ES_CHASE,
+			.currentState = ES_FRIGHT,
 			.targetPosition = targetPostion
 	};
 	
@@ -31,85 +31,88 @@ void MoveEnemy(Enemy* enemy)
 		else
 			targetTile = enemy->scatterTile;
 		
-		
-		if (/*enemy->currentState != ES_FRIGHT*/true)
+		int distances[5];
+		distances[4] = INT_MAX-1;
+		if (enemy->currentState != ES_FRIGHT)
 		{
-			int UpDistance = DistanceSquared(Vector2IntAdd(enemy->position, (Vector2Int){0, -1}), targetTile);
-			int LeftDistance = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){-1, 0}), targetTile);
-			int DownDistance = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){0, 1}), targetTile);
-			int RightDistance = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){1, 0}), targetTile);
-			
-			int distances[5] = {UpDistance, LeftDistance, DownDistance, RightDistance, INT_MAX-1};
-			int shortest = -1;
-			while (shortest == -1)
-			{
-				shortest = 0;
-				
-				for (int i = 1; i <= 4; i++)
-				{
-					if (distances[i] < distances[shortest])
-						shortest = i;
-				}
-				
-				switch (shortest)
-				{
-					case 0:
-					{
-						if (enemy->currentDirection == MD_DOWN || FacesWall(enemy->position, MD_UP))
-						{
-							distances[0] = INT_MAX;
-							shortest = -1;
-						} else
-						{
-							enemy->currentDirection = MD_UP;
-						}
-						break;
-					}
-					case 1:
-					{
-						if (enemy->currentDirection == MD_RIGHT || FacesWall(enemy->position, MD_LEFT))
-						{
-							distances[1] = INT_MAX;
-							shortest = -1;
-						} else
-						{
-							enemy->currentDirection = MD_LEFT;
-						}
-						break;
-					}
-					case 2:
-					{
-						if (enemy->currentDirection == MD_UP || FacesWall(enemy->position, MD_DOWN))
-						{
-							distances[2] = INT_MAX;
-							shortest = -1;
-						} else
-						{
-							enemy->currentDirection = MD_DOWN;
-						}
-						break;
-					}
-					case 3:
-					{
-						if (enemy->currentDirection == MD_LEFT || FacesWall(enemy->position, MD_RIGHT))
-						{
-							distances[3] = INT_MAX;
-							shortest = -1;
-						} else
-						{
-							enemy->currentDirection = MD_RIGHT;
-						}
-						break;
-					}
-					default:
-					{
-						enemy->currentDirection = 3 - enemy->currentDirection;
-					}
-				}
-			}
+			distances[0] = DistanceSquared(Vector2IntAdd(enemy->position, (Vector2Int){0, -1}), targetTile);
+			distances[1] = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){-1, 0}), targetTile);
+			distances[2] = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){0, 1}), targetTile);
+			distances[3] = DistanceSquared(Vector2IntAdd(enemy->position,(Vector2Int){1, 0}), targetTile);
 		} else
 		{
+			for (int i = 0; i < 4; i++)
+			{
+				distances[i] = GetRandomValue(INT_MIN, INT_MAX-2);
+			}
+		}
 		
+		int shortest = -1;
+		while (shortest == -1)
+		{
+			shortest = 0;
+			
+			for (int i = 1; i <= 4; i++)
+			{
+				if (distances[i] < distances[shortest])
+					shortest = i;
+			}
+			
+			switch (shortest)
+			{
+				case 0:
+				{
+					if (enemy->currentDirection == MD_DOWN || FacesWall(enemy->position, MD_UP))
+					{
+						distances[0] = INT_MAX;
+						shortest = -1;
+					} else
+					{
+						enemy->currentDirection = MD_UP;
+					}
+					break;
+				}
+				case 1:
+				{
+					if (enemy->currentDirection == MD_RIGHT || FacesWall(enemy->position, MD_LEFT))
+					{
+						distances[1] = INT_MAX;
+						shortest = -1;
+					} else
+					{
+						enemy->currentDirection = MD_LEFT;
+					}
+					break;
+				}
+				case 2:
+				{
+					if (enemy->currentDirection == MD_UP || FacesWall(enemy->position, MD_DOWN))
+					{
+						distances[2] = INT_MAX;
+						shortest = -1;
+					} else
+					{
+						enemy->currentDirection = MD_DOWN;
+					}
+					break;
+				}
+				case 3:
+				{
+					if (enemy->currentDirection == MD_LEFT || FacesWall(enemy->position, MD_RIGHT))
+					{
+						distances[3] = INT_MAX;
+						shortest = -1;
+					} else
+					{
+						enemy->currentDirection = MD_RIGHT;
+					}
+					break;
+				}
+				default:
+				{
+					enemy->currentDirection = 3 - enemy->currentDirection;
+				}
+			}
 		}
 		
 		switch (enemy->currentDirection)
