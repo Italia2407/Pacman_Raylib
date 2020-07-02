@@ -6,6 +6,8 @@
 #include "../management/level-manager.h"
 #include <limits.h>
 
+static const char* eyeTextures[4] = {ASSET_PATH"Eyes_Up.png", ASSET_PATH"Eyes_Left.png", ASSET_PATH"Eyes_Right.png", ASSET_PATH"Eyes_Down.png"};
+
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour)
 {
 	Color palette[] = {colour, (Color){197, 204, 184, 255}, (Color){67, 52, 85, 255}};
@@ -154,6 +156,10 @@ void RenderEnemy(Enemy enemy)
 	Texture usedTexture;
 	if (enemy.currentState == ES_CHASE || enemy.currentState == ES_SCATTER)
 		usedTexture = enemy.sprites[enemy.currentDirection].image;
+	else if (enemy.currentState == ES_FRIGHT)
+		usedTexture = LoadTexture(ASSET_PATH"Ghost_Frightened.png");
+	else if (enemy.currentState == ES_EATEN)
+		usedTexture = LoadTexture(eyeTextures[enemy.currentDirection]);
 	
 	
 	Rectangle source = {
