@@ -80,3 +80,8 @@ int DistanceSquared(Vector2Int a, Vector2Int b)
 	int ver = (b.y - a.y);
 	return hor*hor + ver*ver;
 }
+
+bool Vector2IntEquals(Vector2Int a, Vector2Int b)
+{
+	return (a.x == b.x) && (a.y == b.y);
+}

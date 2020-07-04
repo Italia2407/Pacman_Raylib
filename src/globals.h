@@ -44,5 +44,6 @@ Vector2Int Vector2IntScale(Vector2Int vector, int scale);
 Vector2Int GetDirectionVector2Scaled(MovementDirection direction, int scale);
 
 int DistanceSquared(Vector2Int a, Vector2Int b);
+bool Vector2IntEquals(Vector2Int a, Vector2Int b);
 
 #endif //RAYLIB_TEMPLATE_GLOBALS_H

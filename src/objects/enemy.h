@@ -6,7 +6,6 @@
 #define PACMAN_ENEMY_H
 
 #include "../globals.h"
-#include "player.h"
 #include "../management/sprite-manager.h"
 
 typedef enum EnemyState

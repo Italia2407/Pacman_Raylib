@@ -49,6 +49,14 @@ int main(void)
 			MoveEnemy(&inky);
 			MoveEnemy(&pinky);
 			MoveEnemy(&clyde);
+			
+			if (Vector2IntEquals(blinky.position, player.position) ||
+				Vector2IntEquals(inky.position, player.position) ||
+				Vector2IntEquals(pinky.position, player.position) ||
+				Vector2IntEquals(clyde.position, player.position))
+			{
+				gameOver = true;
+			}
 		}
     	
         BeginDrawing();
@@ -64,7 +72,9 @@ int main(void)
 			BeginScissorMode(0, 34*TILE_SIZE, SCREEN_WIDTH, 2*TILE_SIZE);
 			ClearBackground(UI_COLOUR);
 			
-			DrawText("GAME OVER!", )
+			if (gameOver)
+				DrawText("GAME OVER!", TILE_SIZE, 34*TILE_SIZE, 2*TILE_SIZE, BLACK);
+			
 			EndScissorMode();
 		}
 		// Middle section of the screen

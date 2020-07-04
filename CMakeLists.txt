@@ -10,7 +10,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 add_subdirectory(libs/raylib)
 
 set(SRC_FILES src/main.c src/globals.c)
-set(SRC_OBJ_FILES src/objects/player.c src/objects/enemy.c)
+set(SRC_OBJ_FILES src/objects/player.c src/objects/enemy.c src/objects/edible.c)
 set(SRC_MGT_FILES src/management/level-manager.c src/management/sprite-manager.c)
 
 add_executable(PacMan ${SRC_FILES} ${SRC_OBJ_FILES} ${SRC_MGT_FILES})
