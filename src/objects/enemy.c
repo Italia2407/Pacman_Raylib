@@ -6,7 +6,12 @@
 #include "../management/level-manager.h"
 #include <limits.h>
 
-static const char* eyeTextures[4] = {ASSET_PATH"Eyes_Up.png", ASSET_PATH"Eyes_Left.png", ASSET_PATH"Eyes_Right.png", ASSET_PATH"Eyes_Down.png"};
+static const char* eyeTextures[4] = {
+		ASSET_PATH"enemies/Eyes_Up.png",
+		ASSET_PATH"enemies/Eyes_Left.png",
+		ASSET_PATH"enemies/Eyes_Right.png",
+		ASSET_PATH"enemies/Eyes_Down.png"
+};
 
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour)
 {
@@ -18,10 +23,10 @@ Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*target
 			.currentState = ES_CHASE,
 			.targetPosition = targetPostion,
 			.colour = colour,
-			.sprites[0] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Up.png", palette),
-			.sprites[1] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Left.png", palette),
-			.sprites[2] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Right.png", palette),
-			.sprites[3] = LoadSpriteWithPalette(ASSET_PATH"Ghost_Down.png", palette)
+			.sprites[0] = LoadSpriteWithPalette(ASSET_PATH"enemies/Ghost_Up.png", palette),
+			.sprites[1] = LoadSpriteWithPalette(ASSET_PATH"enemies/Ghost_Left.png", palette),
+			.sprites[2] = LoadSpriteWithPalette(ASSET_PATH"enemies/Ghost_Right.png", palette),
+			.sprites[3] = LoadSpriteWithPalette(ASSET_PATH"enemies/Ghost_Down.png", palette)
 	};
 	
 	return newEnemy;
@@ -157,7 +162,7 @@ void RenderEnemy(Enemy enemy)
 	if (enemy.currentState == ES_CHASE || enemy.currentState == ES_SCATTER)
 		usedTexture = enemy.sprites[enemy.currentDirection].image;
 	else if (enemy.currentState == ES_FRIGHT)
-		usedTexture = LoadTexture(ASSET_PATH"Ghost_Frightened.png");
+		usedTexture = LoadTexture(ASSET_PATH"enemies/Ghost_Frightened.png");
 	else if (enemy.currentState == ES_EATEN)
 		usedTexture = LoadTexture(eyeTextures[enemy.currentDirection]);
 	

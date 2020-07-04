@@ -21,6 +21,8 @@ Enemy inky;
 Enemy pinky;
 Enemy clyde;
 
+bool gameOver = false;
+
 int main(void)
 {
     // Initialization
@@ -39,12 +41,15 @@ int main(void)
     
     while (!WindowShouldClose())
     {
-    	UpdatePosition(&player);
-    	
-    	MoveEnemy(&blinky);
-    	MoveEnemy(&inky);
-    	MoveEnemy(&pinky);
-    	MoveEnemy(&clyde);
+    	if (!gameOver)
+		{
+			UpdatePosition(&player);
+		
+			MoveEnemy(&blinky);
+			MoveEnemy(&inky);
+			MoveEnemy(&pinky);
+			MoveEnemy(&clyde);
+		}
     	
         BeginDrawing();
         
@@ -58,6 +63,8 @@ int main(void)
 		{
 			BeginScissorMode(0, 34*TILE_SIZE, SCREEN_WIDTH, 2*TILE_SIZE);
 			ClearBackground(UI_COLOUR);
+			
+			DrawText("GAME OVER!", )
 			EndScissorMode();
 		}
 		// Middle section of the screen

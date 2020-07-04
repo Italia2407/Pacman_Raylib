@@ -4,6 +4,39 @@
 
 #include "level-manager.h"
 
+typedef enum TileType
+{
+	TT_TOP,
+	TT_TOPLEFT,
+	TT_LEFT,
+	TT_BOTTOMLEFT,
+	TT_BOTTOM,
+	TT_BOTTOMRIGHT,
+	TT_RIGHT,
+	TT_TOP_RIGHT,
+	TT_TOPLEFTIN,
+	TT_BOTTOMLEFTIN,
+	TT_BOTTOMRIGHTIN,
+	TT_TOPRIGHTIN,
+	TT_FILLED
+} TileType;
+
+static const char* tileTextures[13] = {
+		ASSET_PATH"walls/Top.png",
+		ASSET_PATH"walls/Top_Left_Out.png",
+		ASSET_PATH"walls/Left.png",
+		ASSET_PATH"walls/Bottom_Left_Out.png",
+		ASSET_PATH"walls/Bottom.png",
+		ASSET_PATH"walls/Bottom_Right_Out.png",
+		ASSET_PATH"walls/Right.png",
+		ASSET_PATH"walls/Top_Right_Out.png",
+		ASSET_PATH"walls/Top_Left_In.png",
+		ASSET_PATH"walls/Bottom_Left_In.png",
+		ASSET_PATH"walls/Bottom_Right_In.png",
+		ASSET_PATH"walls/Top_Right_In.png",
+		ASSET_PATH"walls/Filled.png"
+		};
+
 Tile LevelTileMap[TILES_HORIZONTAL][TILES_VERTICAL-5] = {0};
 
 static Tile ValidWall = {true};
