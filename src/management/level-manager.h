@@ -7,13 +7,6 @@
 
 #include "../globals.h"
 
-typedef struct Tile
-{
-	bool wall;
-} Tile;
-
-extern Tile LevelTileMap[TILES_HORIZONTAL][TILES_VERTICAL-5];
-
 void CreateLevelMap();
 
 bool FacesWall(Vector2Int position, MovementDirection direction);
