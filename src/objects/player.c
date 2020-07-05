@@ -5,6 +5,13 @@
 #include "player.h"
 #include "../management/level-manager.h"
 
+static const char* playerTextures[4] = {
+		ASSET_PATH"player/Player_Up.png",
+		ASSET_PATH"player/Player_Left.png",
+		ASSET_PATH"player/Player_Right.png",
+		ASSET_PATH"player/Player_Down.png"
+};
+
 Player InitPlayer(Vector2Int position, MovementDirection direction)
 {
 	Player newPlayer = {
@@ -79,6 +86,11 @@ void UpdatePosition(Player* player)
 
 void RenderPlayer(Player player)
 {
+	Rectangle source = {
+			.width = 12,
+			.height = 12
+	};
+	
 	Vector2 screenSpace = GridToScreen(player.position);
 	Rectangle rectangle = {
 			.x = screenSpace.x - 0.25f*TILE_SIZE,
@@ -87,5 +99,5 @@ void RenderPlayer(Player player)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawRectangleRec(rectangle, YELLOW);
+	DrawTexturePro(LoadTexture(playerTextures[player.currentDirection]), source, rectangle, Vector2Zero(), 0.0f, WHITE);
 }
