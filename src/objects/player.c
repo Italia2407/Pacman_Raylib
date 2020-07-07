@@ -4,13 +4,9 @@
 
 #include "player.h"
 #include "../management/level-manager.h"
+#include "enemy.h"
 
-static const char* playerTextures[4] = {
-		ASSET_PATH"player/Player_Up.png",
-		ASSET_PATH"player/Player_Left.png",
-		ASSET_PATH"player/Player_Right.png",
-		ASSET_PATH"player/Player_Down.png"
-};
+Texture PlayerTextures[4];
 
 Player InitPlayer(Vector2Int position, MovementDirection direction)
 {
@@ -86,7 +82,10 @@ void UpdatePosition(Player* player)
 
 void AteEdible(EdibleType type)
 {
-
+	if (type == ET_POWERUP)
+	{
+		EnterFright();
+	}
 }
 
 void RenderPlayer(Player player)
@@ -104,5 +103,5 @@ void RenderPlayer(Player player)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawTexturePro(LoadTexture(playerTextures[player.currentDirection]), source, rectangle, Vector2Zero(), 0.0f, WHITE);
+	DrawTexturePro(PlayerTextures[player.currentDirection], source, rectangle, Vector2Zero(), 0.0f, WHITE);
 }

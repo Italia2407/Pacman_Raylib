@@ -10,6 +10,9 @@ static int NumberEdibles = 0;
 int EdibleSize = 8;
 Edible* Edibles = NULL;
 
+Texture PelletTexture;
+Texture PowerPelletTexture;
+
 bool AddEdible(Edible edible)
 {
 	if (NumberEdibles >= EdibleSize)
@@ -49,9 +52,21 @@ void CheckPlayerCollisionEdible(Vector2Int playerPosition)
 
 void DrawEdibles()
 {
+	Rectangle source = {
+			.width = 8,
+			.height = 8
+	};
 	for (int i = 0; i < NumberEdibles; i++)
 	{
 		Edible current = Edibles[i];
-		DrawRectangle(current.position.x*TILE_SIZE, current.position.y*TILE_SIZE, TILE_SIZE, TILE_SIZE, GRAY);
+		Vector2 screenSpace = GridToScreen(current.position);
+		Rectangle rectangle = {
+				.x = screenSpace.x,
+				.y = screenSpace.y,
+				.width = TILE_SIZE,
+				.height = TILE_SIZE
+		};
+		DrawTexturePro(current.type == ET_POWERUP ? PowerPelletTexture : PelletTexture, source, rectangle, Vector2Zero(), 0.0f, WHITE);
+		//DrawRectangle(current.position.x*TILE_SIZE, current.position.y*TILE_SIZE, TILE_SIZE, TILE_SIZE, (current.type == ET_POWERUP ? DARKGRAY : GRAY));
 	}
 }

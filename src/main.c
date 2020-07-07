@@ -26,6 +26,23 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Puck-Man");
     SetTargetFPS(60);
     
+    // Load all textures once
+	{
+		PlayerTextures[0] = LoadTexture(ASSET_PATH"player/Player_Up.png");
+		PlayerTextures[1] = LoadTexture(ASSET_PATH"player/Player_Left.png");
+		PlayerTextures[2] = LoadTexture(ASSET_PATH"player/Player_Right.png");
+		PlayerTextures[3] = LoadTexture(ASSET_PATH"player/Player_Down.png");
+		
+		FrightTexture = LoadTexture(ASSET_PATH"enemies/Ghost_Frightened.png");
+		EyeTextures[0] = LoadTexture(ASSET_PATH"enemies/Eyes_Up.png");
+		EyeTextures[1] = LoadTexture(ASSET_PATH"enemies/Eyes_Left.png");
+		EyeTextures[2] = LoadTexture(ASSET_PATH"enemies/Eyes_Right.png");
+		EyeTextures[3] = LoadTexture(ASSET_PATH"enemies/Eyes_Down.png");
+		
+		PelletTexture = LoadTexture(ASSET_PATH"Pellet.png");
+		PowerPelletTexture = LoadTexture(ASSET_PATH"Power_Pellet.png");
+	}
+    
     Edibles = (Edible*)calloc(EdibleSize, sizeof(Edible));
     
     CreateLevelMap();

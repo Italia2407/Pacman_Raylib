@@ -27,6 +27,8 @@ typedef struct Player
 	
 } Player;
 
+extern Texture PlayerTextures[4];
+
 Player InitPlayer(Vector2Int position, MovementDirection direction);
 
 void UpdatePosition(Player* player);

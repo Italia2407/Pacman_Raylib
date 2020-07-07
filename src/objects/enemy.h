@@ -42,6 +42,9 @@ typedef struct Enemy
 	Sprite sprites[4];
 } Enemy;
 
+extern Texture FrightTexture;
+extern Texture EyeTextures[4];
+
 extern Enemy blinky;
 extern Enemy inky;
 extern Enemy pinky;
@@ -51,6 +54,7 @@ Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*target
 
 void MoveEnemy(Enemy* enemy);
 void UpdateStates();
+void EnterFright();
 
 void RenderEnemy(Enemy enemy);
 

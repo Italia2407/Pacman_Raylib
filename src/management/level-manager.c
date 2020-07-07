@@ -74,6 +74,15 @@ static const char* tileTexturesFiles[13] = {
 };
 static Texture tileTextures[13];
 
+static Vector2Int PowerPellets[6] = {
+		(Vector2Int){1, 4},
+		(Vector2Int){1, 12},
+		(Vector2Int){3, 23},
+		(Vector2Int){26, 4},
+		(Vector2Int){26, 12},
+		(Vector2Int){24, 23}
+};
+
 void CreateLevelMap()
 {
 	for (int i = 0; i < 13; i++)
@@ -87,9 +96,15 @@ void CreateLevelMap()
 		{
 			if (LevelTileMap[y][x] == TT_EMPTY)
 			{
+				bool PowerLocation = false;
+				for (int i = 0; i < 6; i++)
+				{
+					if (Vector2IntEquals((Vector2Int){x, y}, PowerPellets[i]))
+						PowerLocation = true;
+				}
 				Edible newEdible = {
 						.position = (Vector2Int){x, y+3},
-						.type = ET_NORMAL
+						.type = (PowerLocation) ? ET_POWERUP : ET_NORMAL
 				};
 				AddEdible(newEdible);
 			}

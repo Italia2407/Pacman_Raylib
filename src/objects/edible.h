@@ -23,6 +23,9 @@ typedef struct Edible
 extern Edible* Edibles;
 extern int EdibleSize;
 
+extern Texture PelletTexture;
+extern Texture PowerPelletTexture;
+
 bool AddEdible(Edible edible);
 void CheckPlayerCollisionEdible(Vector2Int playerPosition);
 

@@ -20,12 +20,8 @@ Enemy inky;
 Enemy pinky;
 Enemy clyde;
 
-static const char* eyeTextures[4] = {
-		ASSET_PATH"enemies/Eyes_Up.png",
-		ASSET_PATH"enemies/Eyes_Left.png",
-		ASSET_PATH"enemies/Eyes_Right.png",
-		ASSET_PATH"enemies/Eyes_Down.png"
-};
+Texture FrightTexture;
+Texture EyeTextures[4];
 
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour)
 {
@@ -236,9 +232,9 @@ void RenderEnemy(Enemy enemy)
 	if (enemy.currentState == ES_CHASE || enemy.currentState == ES_SCATTER)
 		usedTexture = enemy.sprites[enemy.currentDirection].image;
 	else if (enemy.currentState == ES_FRIGHT)
-		usedTexture = LoadTexture(ASSET_PATH"enemies/Ghost_Frightened.png");
+		usedTexture = FrightTexture;
 	else if (enemy.currentState == ES_EATEN)
-		usedTexture = LoadTexture(eyeTextures[enemy.currentDirection]);
+		usedTexture = EyeTextures[enemy.currentDirection];
 	
 	
 	Rectangle source = {
