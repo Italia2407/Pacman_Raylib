@@ -84,6 +84,11 @@ void UpdatePosition(Player* player)
 	}
 }
 
+void AteEdible(EdibleType type)
+{
+
+}
+
 void RenderPlayer(Player player)
 {
 	Rectangle source = {

@@ -1,6 +1,7 @@
 #include "globals.h"
 #include "objects/player.h"
 #include "objects/enemy.h"
+#include "objects/edible.h"
 #include "management/level-manager.h"
 
 #define SCREEN_WIDTH (TILES_HORIZONTAL * TILE_SIZE)
@@ -30,6 +31,8 @@ int main(void)
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Puck-Man");
     SetTargetFPS(60);
     
+    Edibles = (Edible*)calloc(EdibleSize, sizeof(Edible));
+    
     CreateLevelMap();
     
     player = InitPlayer((Vector2Int){13, 26}, MD_UP);
@@ -44,6 +47,7 @@ int main(void)
     	if (!gameOver)
 		{
 			UpdatePosition(&player);
+			CheckPlayerCollisionEdible(player.position);
 		
 			MoveEnemy(&blinky);
 			MoveEnemy(&inky);
@@ -83,6 +87,8 @@ int main(void)
 			ClearBackground(LEVEL_COLOUR);
 			
 			DrawLevelTileMap();
+			DrawEdibles();
+			
 			RenderPlayer(player);
 			RenderEnemy(blinky);
 			RenderEnemy(inky);

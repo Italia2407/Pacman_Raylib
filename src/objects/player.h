@@ -6,6 +6,7 @@
 #define RAYLIB_TEMPLATE_PLAYER_H
 
 #include "../globals.h"
+#include "edible.h"
 
 typedef struct Player
 {
@@ -29,6 +30,7 @@ typedef struct Player
 Player InitPlayer(Vector2Int position, MovementDirection direction);
 
 void UpdatePosition(Player* player);
+void AteEdible(EdibleType type);
 
 void RenderPlayer(Player player);
 
