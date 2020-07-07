@@ -36,13 +36,21 @@ typedef struct Enemy
 	
 	float movementTimer;
 	
+	float frightTimer;
+	
 	Color colour;
 	Sprite sprites[4];
 } Enemy;
 
+extern Enemy blinky;
+extern Enemy inky;
+extern Enemy pinky;
+extern Enemy clyde;
+
 Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*targetPostion)(), Color colour);
 
 void MoveEnemy(Enemy* enemy);
+void UpdateStates();
 
 void RenderEnemy(Enemy enemy);
 

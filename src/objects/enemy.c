@@ -6,6 +6,20 @@
 #include "../management/level-manager.h"
 #include <limits.h>
 
+#define CHASE_TIME (24.0f)
+#define SCATTER_TIME (6.0f)
+#define FRIGHT_TIME (12.0f)
+
+static EnemyState GlobalState = ES_CHASE;
+static bool FrightMode = false;
+static float StateTimer = 0.0f;
+static float FrightTimer = 0.0f;
+
+Enemy blinky;
+Enemy inky;
+Enemy pinky;
+Enemy clyde;
+
 static const char* eyeTextures[4] = {
 		ASSET_PATH"enemies/Eyes_Up.png",
 		ASSET_PATH"enemies/Eyes_Left.png",
@@ -20,7 +34,7 @@ Enemy InitEnemy(Vector2Int position, Vector2Int scatterTile, Vector2Int (*target
 			.position = position,
 			.scatterTile = scatterTile,
 			.currentDirection = MD_RIGHT,
-			.currentState = ES_CHASE,
+			.currentState = GlobalState,
 			.targetPosition = targetPostion,
 			.colour = colour,
 			.sprites[0] = LoadSpriteWithPalette(ASSET_PATH"enemies/Ghost_Up.png", palette),
@@ -154,6 +168,66 @@ void MoveEnemy(Enemy* enemy)
 	}
 	
 	enemy->movementTimer += GetFrameTime();
+}
+
+void UpdateStates()
+{
+	if (FrightMode)
+	{
+		FrightTimer += GetFrameTime();
+		// Check if fright timer has ended
+		if (FrightTimer >= FRIGHT_TIME)
+		{
+			blinky.currentState = GlobalState;
+			inky.currentState = GlobalState;
+			pinky.currentState = GlobalState;
+			clyde.currentState = GlobalState;
+			
+			FrightMode = false;
+		}
+	} else
+	{
+		StateTimer += GetFrameTime();
+		
+		// Check if chase timer has ended
+		if (GlobalState == ES_CHASE && StateTimer >= CHASE_TIME)
+		{
+			blinky.currentState = ES_SCATTER;
+			inky.currentState = ES_SCATTER;
+			pinky.currentState = ES_SCATTER;
+			clyde.currentState = ES_SCATTER;
+			
+			StateTimer = 0.0f;
+			GlobalState = ES_SCATTER;
+		}
+		// Check if scatter timer has ended
+		else if (GlobalState == ES_SCATTER && StateTimer >= SCATTER_TIME)
+		{
+			blinky.currentState = ES_CHASE;
+			inky.currentState = ES_CHASE;
+			pinky.currentState = ES_CHASE;
+			clyde.currentState = ES_CHASE;
+			
+			StateTimer = 0.0f;
+			GlobalState = ES_CHASE;
+		}
+	}
+}
+
+void EnterFright()
+{
+	FrightTimer = 0.0f;
+	FrightMode = true;
+	
+	blinky.currentState = ES_FRIGHT;
+	inky.currentState = ES_FRIGHT;
+	pinky.currentState = ES_FRIGHT;
+	clyde.currentState = ES_FRIGHT;
+	
+	blinky.currentDirection = 3 - blinky.currentDirection;
+	inky.currentDirection = 3 - inky.currentDirection;
+	pinky.currentDirection = 3 - pinky.currentDirection;
+	clyde.currentDirection = 3 - clyde.currentDirection;
 }
 
 void RenderEnemy(Enemy enemy)

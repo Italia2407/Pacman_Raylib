@@ -17,11 +17,6 @@ Vector2Int ClydeTarget();
 
 Player player;
 
-Enemy blinky;
-Enemy inky;
-Enemy pinky;
-Enemy clyde;
-
 bool gameOver = false;
 
 int main(void)
@@ -49,6 +44,7 @@ int main(void)
 			UpdatePosition(&player);
 			CheckPlayerCollisionEdible(player.position);
 		
+			UpdateStates();
 			MoveEnemy(&blinky);
 			MoveEnemy(&inky);
 			MoveEnemy(&pinky);
