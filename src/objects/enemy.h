@@ -56,6 +56,8 @@ void MoveEnemy(Enemy* enemy);
 void UpdateStates();
 void EnterFright();
 
+bool CheckPlayerCollision(Vector2Int playerPos);
+
 void RenderEnemy(Enemy enemy);
 
 #endif //PACMAN_ENEMY_H

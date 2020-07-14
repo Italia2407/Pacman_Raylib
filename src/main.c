@@ -60,6 +60,11 @@ int main(void)
 		{
 			UpdatePosition(&player);
 			CheckPlayerCollisionEdible(player.position);
+			
+			if (CheckPlayerCollision(player.position))
+			{
+				gameOver = true;
+			}
 		
 			UpdateStates();
 			MoveEnemy(&blinky);
@@ -67,10 +72,7 @@ int main(void)
 			MoveEnemy(&pinky);
 			MoveEnemy(&clyde);
 			
-			if (Vector2IntEquals(blinky.position, player.position) ||
-				Vector2IntEquals(inky.position, player.position) ||
-				Vector2IntEquals(pinky.position, player.position) ||
-				Vector2IntEquals(clyde.position, player.position))
+			if (CheckPlayerCollision(player.position))
 			{
 				gameOver = true;
 			}

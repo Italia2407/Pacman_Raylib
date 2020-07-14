@@ -226,6 +226,32 @@ void EnterFright()
 	clyde.currentDirection = 3 - clyde.currentDirection;
 }
 
+static bool EnemyCollided(Enemy* enemy, Vector2Int playerPos)
+{
+	if (Vector2IntEquals(enemy->position, playerPos))
+	{
+		if (FrightMode)
+		{
+			printf("Fright collision happened!");
+			enemy->currentState = ES_EATEN;
+		}
+		
+		return !FrightMode;
+	}
+	
+	return false;
+}
+
+bool CheckPlayerCollision(Vector2Int playerPos)
+{
+	bool BlinkyCollsion = EnemyCollided(&blinky, playerPos);
+	bool InkyCollsion = EnemyCollided(&inky, playerPos);
+	bool PinkyCollsion = EnemyCollided(&pinky, playerPos);
+	bool ClydeCollsion = EnemyCollided(&clyde, playerPos);
+	
+	return BlinkyCollsion || InkyCollsion || PinkyCollsion || ClydeCollsion;
+}
+
 void RenderEnemy(Enemy enemy)
 {
 	Texture usedTexture;
