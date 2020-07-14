@@ -32,6 +32,7 @@ int main(void)
 		PlayerTextures[1] = LoadTexture(ASSET_PATH"player/Player_Left.png");
 		PlayerTextures[2] = LoadTexture(ASSET_PATH"player/Player_Right.png");
 		PlayerTextures[3] = LoadTexture(ASSET_PATH"player/Player_Down.png");
+		PlayerTextures[4] = LoadTexture(ASSET_PATH"player/Player_Dead.png");
 		
 		FrightTexture = LoadTexture(ASSET_PATH"enemies/Ghost_Frightened.png");
 		EyeTextures[0] = LoadTexture(ASSET_PATH"enemies/Eyes_Up.png");
@@ -104,7 +105,7 @@ int main(void)
 			DrawLevelTileMap();
 			DrawEdibles();
 			
-			RenderPlayer(player);
+			RenderPlayer(player, gameOver);
 			RenderEnemy(blinky);
 			RenderEnemy(inky);
 			RenderEnemy(pinky);

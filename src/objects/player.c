@@ -6,7 +6,7 @@
 #include "../management/level-manager.h"
 #include "enemy.h"
 
-Texture PlayerTextures[4];
+Texture PlayerTextures[5];
 
 Player InitPlayer(Vector2Int position, MovementDirection direction)
 {
@@ -88,7 +88,7 @@ void AteEdible(EdibleType type)
 	}
 }
 
-void RenderPlayer(Player player)
+void RenderPlayer(Player player, bool isDead)
 {
 	Rectangle source = {
 			.width = 12,
@@ -103,5 +103,5 @@ void RenderPlayer(Player player)
 			.height = TILE_SIZE*1.5f
 	};
 	
-	DrawTexturePro(PlayerTextures[player.currentDirection], source, rectangle, Vector2Zero(), 0.0f, WHITE);
+	DrawTexturePro(isDead ? PlayerTextures[4] : PlayerTextures[player.currentDirection], source, rectangle, Vector2Zero(), 0.0f, WHITE);
 }

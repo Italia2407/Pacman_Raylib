@@ -27,13 +27,13 @@ typedef struct Player
 	
 } Player;
 
-extern Texture PlayerTextures[4];
+extern Texture PlayerTextures[5];
 
 Player InitPlayer(Vector2Int position, MovementDirection direction);
 
 void UpdatePosition(Player* player);
 void AteEdible(EdibleType type);
 
-void RenderPlayer(Player player);
+void RenderPlayer(Player player, bool isDead);
 
 #endif //RAYLIB_TEMPLATE_PLAYER_H
