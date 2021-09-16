@@ -26,16 +26,16 @@ void UpdatePosition(Player* player)
 {
 	// Change direction
 	{
-		if (IsKeyPressed(KEY_W))
+		if (IsKeyPressed(KEY_W) && !FacesWall(player->position, MD_UP))
 		{
 			player->nextDirection = MD_UP;
-		} else if (IsKeyPressed(KEY_S))
+		} else if (IsKeyPressed(KEY_S) && !FacesWall(player->position, MD_DOWN))
 		{
 			player->nextDirection = MD_DOWN;
-		} else if (IsKeyPressed(KEY_A))
+		} else if (IsKeyPressed(KEY_A) && !FacesWall(player->position, MD_LEFT))
 		{
 			player->nextDirection = MD_LEFT;
-		} else if (IsKeyPressed(KEY_D))
+		} else if (IsKeyPressed(KEY_D) && !FacesWall(player->position, MD_RIGHT))
 		{
 			player->nextDirection = MD_RIGHT;
 		}
